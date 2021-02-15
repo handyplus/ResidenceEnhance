@@ -31,7 +31,7 @@ public class ResidenceChangedEventListener implements Listener {
 
         // 判断是否op
         boolean isOp = ConfigUtil.config.getBoolean("isOp");
-        if (isOp && player.isOp()) {
+        if (!isOp && player.isOp()) {
             return;
         }
 

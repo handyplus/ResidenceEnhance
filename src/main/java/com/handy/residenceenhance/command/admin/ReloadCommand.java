@@ -1,7 +1,7 @@
 package com.handy.residenceenhance.command.admin;
 
-import com.handy.residenceenhance.util.ConfigUtil;
 import com.handy.residenceenhance.ResidenceEnhance;
+import com.handy.residenceenhance.util.ConfigUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -33,6 +33,7 @@ public class ReloadCommand {
             @Override
             public void run() {
                 ConfigUtil.lordConfig();
+                sender.sendMessage("§a命令执行成功");
             }
         }.runTaskAsynchronously(ResidenceEnhance.getInstance());
     }

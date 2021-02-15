@@ -1,5 +1,5 @@
-# 是否也禁止op
-isOp: false
+# 是否也禁止op true 限制.false不限制
+isOp: true
 
 # 是否也禁止领地所有者
 isOwner: false
