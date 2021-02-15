@@ -1,0 +1,19 @@
+name: ResidenceEnhance
+version: 1.0.0
+main: com.handy.residenceenhance.ResidenceEnhance
+api-version: "1.13"
+author: handy
+description: 一款有点好用的领地增强插件
+depend: [Residence]
+commands:
+  residenceenhance:
+    description: §a领地增强插件
+    aliases: [re]
+permissions:
+  residenceenhance.*:
+    description: §a领地增强插件
+    children:
+      residenceenhance.reload: true
+  residenceenhance.reload:
+    description: §a重新加载配置
+    default: op
