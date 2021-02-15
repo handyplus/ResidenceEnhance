@@ -1,3 +1,9 @@
+# 是否也禁止op
+isOp: false
+
+# 是否也禁止领地所有者
+isOwner: false
+
 msg: "§a这个领地禁止执行该命令!"
 
 # 限制的领地名字

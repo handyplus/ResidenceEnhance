@@ -1,5 +1,7 @@
 package com.handy.residenceenhance.listener;
 
+import com.bekvon.bukkit.residence.Residence;
+import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 import com.handy.residenceenhance.util.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +26,13 @@ public class PlayerCommandPreprocessEventListener implements Listener {
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
+
+        // 判断是否领地
+        ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(player.getLocation());
+        if (res == null) {
+            return;
+        }
+
         String message = event.getMessage();
         message = message.replace("/", "");
         if (message.length() < 1) {
@@ -32,6 +41,27 @@ public class PlayerCommandPreprocessEventListener implements Listener {
 
         String[] messageList = message.split(" ");
         String command = messageList[0];
+
+        // 判断是否包含领地
+        List<String> residenceNames = ConfigUtil.config.getStringList("name");
+        if (!residenceNames.contains(res.getName())) {
+            return;
+        }
+
+        // 判断是否op
+        boolean isOp = ConfigUtil.config.getBoolean("isOp");
+        if (isOp && player.isOp()) {
+            return;
+        }
+
+        // 判断是否领地所有者
+        boolean isOwner = ConfigUtil.config.getBoolean("isOwner");
+        if (!isOwner) {
+            String owner = res.getOwner();
+            if (player.getName().equals(owner)) {
+                return;
+            }
+        }
 
         // 判断是否包含领地禁止的命令
         List<String> residenceCommands = ConfigUtil.config.getStringList("command");
@@ -44,6 +74,7 @@ public class PlayerCommandPreprocessEventListener implements Listener {
         if (!residenceCommandsLowerCases.contains(command.toLowerCase())) {
             return;
         }
+
         event.setCancelled(true);
         String msg = ConfigUtil.config.getString("msg");
         player.sendMessage(msg != null ? msg : "§a这个领地禁止执行该命令!");

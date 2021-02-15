@@ -27,6 +27,22 @@ public class ResidenceChangedEventListener implements Listener {
         if (to == null) {
             return;
         }
+        Player player = event.getPlayer();
+
+        // 判断是否op
+        boolean isOp = ConfigUtil.config.getBoolean("isOp");
+        if (isOp && player.isOp()) {
+            return;
+        }
+
+        // 判断是否领地所有者
+        boolean isOwner = ConfigUtil.config.getBoolean("isOwner");
+        if (!isOwner) {
+            String owner = to.getOwner();
+            if (player.getName().equals(owner)) {
+                return;
+            }
+        }
 
         // 判断是否包含领地
         List<String> residenceNames = ConfigUtil.config.getStringList("name");
@@ -34,7 +50,7 @@ public class ResidenceChangedEventListener implements Listener {
             return;
         }
 
-        Player player = event.getPlayer();
+
         boolean allowFlight = player.getAllowFlight();
         if (allowFlight) {
             player.setAllowFlight(false);
