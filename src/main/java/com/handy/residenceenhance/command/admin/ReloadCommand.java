@@ -32,7 +32,7 @@ public class ReloadCommand {
         new BukkitRunnable() {
             @Override
             public void run() {
-                ConfigUtil.lordConfig();
+                ConfigUtil.loadConfig();
                 sender.sendMessage("§a命令执行成功");
             }
         }.runTaskAsynchronously(ResidenceEnhance.getInstance());

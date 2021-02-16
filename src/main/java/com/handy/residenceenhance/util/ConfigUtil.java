@@ -26,13 +26,13 @@ public class ConfigUtil {
             ResidenceEnhance.getInstance().saveDefaultConfig();
         }
         // 加载config
-        lordConfig();
+        loadConfig();
     }
 
     /**
      * 加载config
      */
-    public static void lordConfig() {
+    public static void loadConfig() {
         // 读取信息
         ResidenceEnhance.getInstance().reloadConfig();
         // 加载config
