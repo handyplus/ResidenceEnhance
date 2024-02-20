@@ -1,7 +1,9 @@
-package com.handy.residenceenhance.command;
+package cn.handyplus.residence.enhance.command;
 
-import com.handy.residenceenhance.command.admin.ReloadCommand;
-import com.handy.residenceenhance.constants.TabListEnum;
+import cn.handyplus.lib.annotation.HandyCommand;
+import cn.handyplus.lib.command.HandyCommandFactory;
+import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.residence.enhance.constants.TabListEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -12,28 +14,20 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author hs
- * @date 2021-02-15 17:14
+ * @author handy
  **/
+@HandyCommand(name = "residenceEnhance")
 public class ResidenceEnhanceCommand implements TabExecutor {
+
+
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 判断指令是否正确
         if (args.length < 1) {
             return true;
         }
-
-        switch (args[0].toLowerCase()) {
-            case "reload":
-                if (!sender.hasPermission("residenceenhance.reload")) {
-                    sender.sendMessage("§4你没有权限执行该命令");
-                    return true;
-                }
-                ReloadCommand.getSingleton().onCommand(sender, cmd, label, args);
-                break;
-            default:
-                return true;
-        }
+        HandyCommandFactory.getInstance().onCommand(sender, cmd, label, args, BaseUtil.getMsgNotColor("noPermission"));
         return true;
     }
 

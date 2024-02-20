@@ -1,8 +1,9 @@
-package com.handy.residenceenhance.listener;
+package cn.handyplus.residence.enhance.listener;
 
+import cn.handyplus.lib.annotation.HandyListener;
+import cn.handyplus.residence.enhance.util.ConfigUtil;
 import com.bekvon.bukkit.residence.Residence;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
-import com.handy.residenceenhance.util.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author hs
- * @date 2021-02-15 17:09
+ * @author handy
  **/
+@HandyListener
 public class PlayerCommandPreprocessEventListener implements Listener {
 
     /**
@@ -35,7 +36,7 @@ public class PlayerCommandPreprocessEventListener implements Listener {
 
         String message = event.getMessage();
         message = message.replace("/", "");
-        if (message.length() < 1) {
+        if (message.isEmpty()) {
             return;
         }
 
@@ -43,19 +44,19 @@ public class PlayerCommandPreprocessEventListener implements Listener {
         String command = messageList[0];
 
         // 判断是否包含领地
-        List<String> residenceNames = ConfigUtil.config.getStringList("name");
+        List<String> residenceNames = ConfigUtil.CONFIG.getStringList("name");
         if (!residenceNames.contains(res.getName())) {
             return;
         }
 
         // 判断是否op
-        boolean isOp = ConfigUtil.config.getBoolean("isOp");
+        boolean isOp = ConfigUtil.CONFIG.getBoolean("isOp");
         if (!isOp && player.isOp()) {
             return;
         }
 
         // 判断是否领地所有者
-        boolean isOwner = ConfigUtil.config.getBoolean("isOwner");
+        boolean isOwner = ConfigUtil.CONFIG.getBoolean("isOwner");
         if (!isOwner) {
             String owner = res.getOwner();
             if (player.getName().equals(owner)) {
@@ -64,7 +65,7 @@ public class PlayerCommandPreprocessEventListener implements Listener {
         }
 
         // 判断是否包含领地禁止的命令
-        List<String> residenceCommands = ConfigUtil.config.getStringList("command");
+        List<String> residenceCommands = ConfigUtil.CONFIG.getStringList("command");
 
         List<String> residenceCommandsLowerCases = new ArrayList<>();
         for (String residenceCommand : residenceCommands) {
@@ -76,7 +77,7 @@ public class PlayerCommandPreprocessEventListener implements Listener {
         }
 
         event.setCancelled(true);
-        String msg = ConfigUtil.config.getString("msg");
+        String msg = ConfigUtil.CONFIG.getString("msg");
         player.sendMessage(msg != null ? msg : "§a这个领地禁止执行该命令!");
     }
 

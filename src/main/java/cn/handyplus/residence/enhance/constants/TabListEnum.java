@@ -1,15 +1,14 @@
-package com.handy.residenceenhance.constants;
+package cn.handyplus.residence.enhance.constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * @author hs
- * @date 2020/7/16 16:37
+ * @author handy
  */
 @Getter
 @AllArgsConstructor
@@ -17,7 +16,7 @@ public enum TabListEnum {
     /**
      * 第一层提醒
      */
-    FIRST(Arrays.asList("reload"), 0, null, 1),
+    FIRST(Collections.singletonList("reload"), 0, null, 1),
 
     ;
 
@@ -48,13 +47,19 @@ public enum TabListEnum {
     public static List<String> returnList(String[] args, int argsLength) {
         List<String> completions = new ArrayList<>();
         for (TabListEnum tabListEnum : TabListEnum.values()) {
+            // 过滤掉参数长度不满足要求的情况
             if (tabListEnum.getBefPos() - 1 >= args.length) {
                 continue;
             }
-            if ((tabListEnum.getBef() == null || tabListEnum.getBef().equalsIgnoreCase(args[tabListEnum.getBefPos() - 1]))
-                    && tabListEnum.getNum() == argsLength) {
-                completions = tabListEnum.getList();
+            // 过滤掉前置参数不匹配的情况
+            if (tabListEnum.getBef() != null && !tabListEnum.getBef().equalsIgnoreCase(args[tabListEnum.getBefPos() - 1])) {
+                continue;
             }
+            // 过滤掉参数长度不匹配的情况
+            if (tabListEnum.getNum() != argsLength) {
+                continue;
+            }
+            return tabListEnum.getList();
         }
         return completions;
     }

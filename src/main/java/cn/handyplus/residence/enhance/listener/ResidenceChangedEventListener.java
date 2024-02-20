@@ -1,8 +1,9 @@
-package com.handy.residenceenhance.listener;
+package cn.handyplus.residence.enhance.listener;
 
+import cn.handyplus.lib.annotation.HandyListener;
 import com.bekvon.bukkit.residence.event.ResidenceChangedEvent;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
-import com.handy.residenceenhance.util.ConfigUtil;
+import cn.handyplus.residence.enhance.util.ConfigUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,9 +11,9 @@ import org.bukkit.event.Listener;
 import java.util.List;
 
 /**
- * @author hs
- * @date 2021-02-15 16:52
+ * @author handy
  **/
+@HandyListener
 public class ResidenceChangedEventListener implements Listener {
 
     /**
@@ -30,13 +31,13 @@ public class ResidenceChangedEventListener implements Listener {
         Player player = event.getPlayer();
 
         // 判断是否op
-        boolean isOp = ConfigUtil.config.getBoolean("isOp");
+        boolean isOp = ConfigUtil.CONFIG.getBoolean("isOp");
         if (!isOp && player.isOp()) {
             return;
         }
 
         // 判断是否领地所有者
-        boolean isOwner = ConfigUtil.config.getBoolean("isOwner");
+        boolean isOwner = ConfigUtil.CONFIG.getBoolean("isOwner");
         if (!isOwner) {
             String owner = to.getOwner();
             if (player.getName().equals(owner)) {
@@ -45,7 +46,7 @@ public class ResidenceChangedEventListener implements Listener {
         }
 
         // 判断是否包含领地
-        List<String> residenceNames = ConfigUtil.config.getStringList("name");
+        List<String> residenceNames = ConfigUtil.CONFIG.getStringList("name");
         if (!residenceNames.contains(to.getName())) {
             return;
         }
