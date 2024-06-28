@@ -1,7 +1,7 @@
 ## ResidenceEnhance 领地附属
 
 ![适用核心](https://img.shields.io/badge/适用核心-Spigot|Folia-blue)
-![适用版本](https://img.shields.io/badge/适用版本-1.7.x--1.20.x-blue)
+![适用版本](https://img.shields.io/badge/适用版本-1.7.x--1.21.x-blue)
 ![是否付费](https://img.shields.io/badge/是否付费-否-blue)
 
 ### 一、简介
@@ -23,16 +23,14 @@ msg: "§a这个领地禁止执行该命令!"
 
 # 限制的领地名字
 name:
-- "test"
-- "fly"
+  - "test"
+  - "fly"
 
 # 领地禁止的命令,无视大小写
 command:
-- "setHome"
-- "fly"
+  - "setHome"
+  - "fly"
 ```
 
-文档地址: [点击查看](https://ricedoc.handyplus.cn/wiki/ResidenceEnhance/)  
-下载地址: [点击查看](https://github.com/handyplus/ResidenceEnhance/releases)
-
+文档地址: [点击查看](https://ricedoc.handyplus.cn/wiki/ResidenceEnhance/)
 

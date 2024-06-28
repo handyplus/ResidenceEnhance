@@ -1,9 +1,10 @@
 name: ResidenceEnhance
-version: 1.0.0
+version: 1.0.2
 main: cn.handyplus.residence.enhance.ResidenceEnhance
 api-version: 1.13
 author: handy
 description: 一款有点好用的领地增强插件
+website: https://ricedoc.handyplus.cn/wiki/ResidenceEnhance
 folia-supported: true
 depend: [ Residence ]
 commands:
